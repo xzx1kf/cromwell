@@ -1,4 +1,5 @@
 from BeautifulSoup import BeautifulSoup 
+import sqlite3
 
 class DreamTeamParser(object):
     
@@ -63,3 +64,28 @@ class DreamTeamParser(object):
 
             print player_info["team"]
             print player_info["pts"]
+
+    def connect_db(self):
+        return sqlite3.connect('./cromwell/tmp/cromwell.db')
+
+    def add_players(self, players):
+        db = self.connect_db()
+
+        for player in players:
+            idp = player['id']
+            pos = player['pos']
+
+            soup = BeautifulSoup(str(player['name']))
+            aTag = soup.find('a')
+            name = aTag.contents
+
+            club = player['team']
+            pts = player['pts']
+
+            x = idp.pop()
+            y = pts.pop()
+
+            db.execute('insert into players (id, name, pos, club, pts) values (?, ?, ?, ?, ?)',
+                    [int(x), name.pop(), str(pos), str(club), float(y)])
+            db.commit()
+

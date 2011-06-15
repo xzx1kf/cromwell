@@ -13,3 +13,4 @@ def test_read_file():
     data = data_source.read_file('d:/home/nick/dev/python/'
                                  'footyapp/source.html')
     assert(len(data) > 0)
+

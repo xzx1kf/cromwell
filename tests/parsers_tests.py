@@ -11,4 +11,5 @@ def test_parser():
 
     assert(len(players) == 418)
 
-    dt_parser.print_player(players)
+    #dt_parser.print_player(players)
+    dt_parser.add_players(players)
