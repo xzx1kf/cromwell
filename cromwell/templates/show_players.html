@@ -13,7 +13,7 @@
   {% endif %}
   <ul class=players>
   {% for player in players %}
-    <li><h2>{{ player.name }}</h2>{{ player.pos|safe }}
+  <li><h2>{{ player.name }}</h2>{{ player.club|safe }}-{{ player.pos|safe }}</li>
   {% else %}
     <li><em>Unbelievable.  No players here so far</em>
   {% endfor %}

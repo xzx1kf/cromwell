@@ -36,8 +36,8 @@ def after_request(response):
 
 @app.route('/')
 def show_players():
-    cur = g.db.execute('select name, pos from players order by id desc')
-    players = [dict(name=row[0], pos=row[1]) for row in cur.fetchall()]
+    cur = g.db.execute('select name, club, pos, pts, id from players order by id asc')
+    players = [dict(name=row[0], club=row[1], pos=row[2]) for row in cur.fetchall()]
     return render_template('show_players.html', players=players)
 
 @app.route('/add', methods=['POST'])

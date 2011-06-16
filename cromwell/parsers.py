@@ -47,7 +47,7 @@ class DreamTeamParser(object):
         player_info = {}
 
         for info in info_tags:
-            player_info[info] = tdTag.contents
+            player_info[info] = tdTag.contents[0]
             tdTag = tdTag.findNext('td')
 
         return player_info
@@ -60,7 +60,7 @@ class DreamTeamParser(object):
 
             soup = BeautifulSoup(str(player_info["name"]))
             aTag = soup.find('a')
-            print aTag.contents
+            print aTag.contents[0]
 
             print player_info["team"]
             print player_info["pts"]
@@ -72,20 +72,17 @@ class DreamTeamParser(object):
         db = self.connect_db()
 
         for player in players:
-            idp = player['id']
+            id = player['id']
             pos = player['pos']
 
             soup = BeautifulSoup(str(player['name']))
             aTag = soup.find('a')
-            name = aTag.contents
+            name = aTag.contents[0]
 
             club = player['team']
             pts = player['pts']
 
-            x = idp.pop()
-            y = pts.pop()
-
             db.execute('insert into players (id, name, pos, club, pts) values (?, ?, ?, ?, ?)',
-                    [int(x), name.pop(), str(pos), str(club), float(y)])
+                    [int(id), str(name), str(pos), str(club), float(pts)])
             db.commit()
 

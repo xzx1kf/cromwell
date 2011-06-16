@@ -23,3 +23,13 @@ class DataSource(object):
         proxy_support = urllib2.ProxyHandler({"http":proxy_url})
         opener = urllib2.build_opener(proxy_support,urllib2.HTTPHandler)
         urllib2.install_opener(opener)
+
+if __name__ == '__main__':
+    ds = DataSource()
+    data = ds.read_file('D:/home/nick/dev/python/footyapp/source.html')
+
+    from parsers import DreamTeamParser
+    dtp = DreamTeamParser()
+    players = dtp.parse(data)
+
+    dtp.print_player(players)
