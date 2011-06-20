@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block body %}
+    <table class=players>
+        {% for player in players %}
+        <tr>
+            <td>{{ player.id }}</td>
+            <td>{{ player.name }}</td>
+            <td>{{ player.pos }}</td>
+            <td>{{ player.pts }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
