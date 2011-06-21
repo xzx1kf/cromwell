@@ -3,6 +3,7 @@ import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, \
      abort, render_template, flash
 from contextlib import closing
+from clublist import clublist
 
 # configuration
 DATABASE = './tmp/cromwell.db'
@@ -50,6 +51,18 @@ def show_club(club):
     players = [dict(name=row[0], pos=row[1], id=row[3], pts=row[2]) \
             for row in cur.fetchall()]
     return render_template('show_club.html', players=players)
+
+@app.route('/club', methods=['GET'])
+def show_club_get():
+    club = request.args.get('clubs')
+    cur = g.db.execute('select name, pos, pts, id from players where \
+            club=? order by pts desc', [club])
+    players = [dict(name=row[0], pos=row[1], id=row[3], pts=row[2]) \
+            for row in cur.fetchall()]
+
+    selected_id = club
+
+    return render_template('show_club.html', players=players, clubs=clublist, selected_id=selected_id)
 
 @app.route('/add', methods=['POST'])
 def add_player():

@@ -1,6 +1,19 @@
 {% extends "layout.html" %}
 {% block body %}
+    <form action="/club" method=GET>
+        <select name=clubs>
+            {% for club_id, club_name in clubs.iteritems() %}
+                <option value={{ club_id }}{% if selected_id==club_id %} selected=selected{% endif %}>{{ club_name }}</option>
+            {% endfor %}
+        </select>
+        <input type=submit value=select />
+    </form>
+
     <table class=players>
+        <th>id</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Points</th>
         {% for player in players %}
         <tr>
             <td>{{ player.id }}</td>

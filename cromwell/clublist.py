@@ -1,0 +1,22 @@
+clublist = {
+        'ars': 'Arsenal',
+        'ast': 'Aston Villa',
+        'bir': 'Birmingham',
+        'blb': 'Blackburn',
+        'blp': 'Blackpool',
+        'bol': 'Bolton',
+        'che': 'Chelsea',
+        'eve': 'Everton',
+        'ful': 'Fulham',
+        'liv': 'Liverpool',
+        'manc': 'Man City',
+        'manu': 'Man Utd',
+        'new': 'Newcastle',
+        'sto': 'Stoke',
+        'sun': 'Sunderland',
+        'tot': 'Tottenham',
+        'wesb': 'West Brom',
+        'wesh': 'West Ham',
+        'wig': 'Wigan',
+        'wol': 'Wolves'
+        }

@@ -66,23 +66,58 @@ class DreamTeamParser(object):
             print player_info["pts"]
 
     def connect_db(self):
-        return sqlite3.connect('./cromwell/tmp/cromwell.db')
+        return sqlite3.connect('./tmp/cromwell.db')
 
     def add_players(self, players):
         db = self.connect_db()
 
         for player in players:
             id = player['id']
-            pos = player['pos']
+            pos = self.translate_position(player['pos'])
 
             soup = BeautifulSoup(str(player['name']))
             aTag = soup.find('a')
             name = aTag.contents[0]
 
-            club = player['team']
+            club = self.translate_club(player['team'])
             pts = player['pts']
 
             db.execute('insert into players (id, name, pos, club, pts) values (?, ?, ?, ?, ?)',
                     [int(id), str(name), str(pos), str(club), float(pts)])
             db.commit()
 
+    def translate_position(self, position):
+        """Translate a position to a common name."""
+        translate = {
+                'GK': 'Keeper',
+                'DEF': 'Defender',
+                'MID': 'Midfielder',
+                'STR': 'Striker',
+                }
+        return translate[position]
+
+    def translate_club(self, club):
+        """Translate a club to a common name."""
+        translate = {
+                'Arsenal': 'ars',
+                'Aston Villa': 'ast',
+                'Birmingham': 'bir',
+                'Blackburn': 'blb',
+                'Blackpool': 'blp',
+                'Bolton': 'bol',
+                'Chelsea': 'che',
+                'Everton': 'eve',
+                'Fulham': 'ful',
+                'Liverpool': 'liv',
+                'Man City': 'manc',
+                'Man Utd': 'manu', 
+                'Newcastle': 'new',
+                'Stoke': 'sto',
+                'Sunderland': 'sun',
+                'Tottenham': 'tot',
+                'West Brom': 'wesb',
+                'West Ham': 'wesh',
+                'Wigan': 'wig',
+                'Wolves': 'wol',
+                }
+        return translate[club]

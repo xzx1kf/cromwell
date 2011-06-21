@@ -32,4 +32,6 @@ if __name__ == '__main__':
     dtp = DreamTeamParser()
     players = dtp.parse(data)
 
+    dtp.add_players(players)
+
     dtp.print_player(players)
